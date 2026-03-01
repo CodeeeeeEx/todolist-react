@@ -61,7 +61,7 @@ function App() {
 // 这里是函数内的JSX内容语法，对应HTML
   return (
     <div className="App">
-      <h1>Todo List</h1>
+      <h1>待办清单</h1>
       {/* 输入区域 */}
       <div className="input-area">
         <input

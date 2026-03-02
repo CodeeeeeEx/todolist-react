@@ -41,18 +41,7 @@ function App() {
     }
   }, [tasks]);
 
-  // 监听 tasks 变化，自动保存到本地存储
-  useEffect(() => {
-    // 把 tasks 数组转成字符串（因为 localStorage 只能存字符串）
-    const tasksString = JSON.stringify(tasks);
-    // 保存到本地存储
-    localStorage.setItem('todo-tasks', tasksString);
-
-    // 控制台输出监控，方便调试和检查确认代码生效
-    console.log('任务已保存到本地存储:', tasks.length, '个任务');
-  }, [tasks]); // 依赖数组，当 tasks 变化时执行
-
-
+  
   // 2.添加任务的函数
   const addTask = () => {
     // 如果输入框是空的，直接返回，不添加

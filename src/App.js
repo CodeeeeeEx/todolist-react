@@ -1,17 +1,57 @@
-// 导入React和useState（useState是状态管理的"钩子"，用来在函数组件里记住和更新数据）
-import React, { useState } from 'react';
+// 导入React、useState以及useEffect（useState是状态管理的"钩子"，用来在函数组件里记住和更新数据; useEffect是本地数据存储所用的函数）
+import { useState, useEffect } from 'react'; // 确保导入了useEffect
 import './App.css';
 
 function App() {
   // 1.用 useState 创建两个状态
   // tasks: 任务列表（初始是空数组 []）
   // setTasks: 更新 tasks 的函数
-  const [tasks, setTasks] = useState([]);
+  // ✨const [tasks, setTasks] = useState([]);
   // 💡 解释：useState([])相当于说“我要一个叫 tasks 的变量，初始值是空数组，如果我想改 tasks，就调用 setTasks”。inputValue同理。
+
+  // 修改为从本地存储读取：
+  const [tasks, setTasks] = useState(() => {
+    // 尝试从 LocalStorage 读取
+    const savedTasks = localStorage.getItem('todo-tasks');
+    // 如果有保存的数据，解析成数组
+    if (savedTasks) {
+      try {
+        return JSON.parse(savedTasks);
+      } catch (error) {
+        console.error('读取本地存储失败:', error);
+        return [];
+      }
+    }
+
+    // 如果没有，返回空数组
+    return [];
+  });
 
   // inputValue: 输入框的内容（初始是空字符串 ''）
   // setInputValue: 更新 inputValue 的函数
   const [inputValue, setInputValue] = useState('');
+
+
+  // 监听 tasks 变化，自动保存
+  useEffect(() => {
+    try {
+      localStorage.setItem('todo-tasks', JSON.stringify(tasks));
+    } catch (error) {
+      console.error('保存到本地存储失败:', error);
+    }
+  }, [tasks]);
+
+  // 监听 tasks 变化，自动保存到本地存储
+  useEffect(() => {
+    // 把 tasks 数组转成字符串（因为 localStorage 只能存字符串）
+    const tasksString = JSON.stringify(tasks);
+    // 保存到本地存储
+    localStorage.setItem('todo-tasks', tasksString);
+
+    // 控制台输出监控，方便调试和检查确认代码生效
+    console.log('任务已保存到本地存储:', tasks.length, '个任务');
+  }, [tasks]); // 依赖数组，当 tasks 变化时执行
+
 
   // 2.添加任务的函数
   const addTask = () => {
@@ -57,6 +97,12 @@ function App() {
     setTasks(newTasks);
   };
 
+  // 5.一键清空所有任务
+  const clearAllTasks = () => {
+    if (window.confirm('确定要清空所有任务吗？')) {
+      setTasks([]);
+    }
+  };
 
 // 这里是函数内的JSX内容语法，对应HTML
   return (
@@ -68,9 +114,22 @@ function App() {
           type="text"
           value={inputValue} // 绑定到状态，与useState钩子有联系
           onChange={(e) => setInputValue(e.target.value)} // 输入时触发，更新状态
+          // 按下回车键也能直接添加不用总是点击添加按钮
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              addTask();
+            }
+          }}
           placeholder="输入新任务..." // placeholder是提示文字区域
         ></input>
         <button onClick={addTask}>添加</button>
+        <button
+          onClick={clearAllTasks}
+          className="clear-btn"
+          disabled={tasks.length === 0}
+        >
+          清空全部
+        </button>
       </div>
 
       {/* 任务列表 */}
@@ -80,12 +139,18 @@ function App() {
             key={task.id} // 每个 li 必须有唯一 key
             // 💡 解释：key={task.id}：React 要求列表每个元素有唯一 key，用于性能优化
 
-            className={tasks.done ? 'done' : ''} // 如果完成，加 'done' 类，否则空
+            className={task.done ? 'done' : ''} // 如果完成，加 'done' 类，否则空
           >
-            {/* 点击任务文字，切换完成状态 onClick={() => deleteTask(task.id)}：点击时调用函数，传入当前任务的 id*/}
-            <span onClick={() => toggleDone(task.id)}>
-              {task.text}
-            </span>
+            {/* 复选框，勾选加划线表示已完成，取消则恢复原样 */}
+            <input
+              type="checkbox"
+              checked={task.done}
+              onChange={() => toggleDone(task.id)}
+              className="task-checkbox"
+              />
+
+            {/* 获取到函数里写的任务内容 */}
+            <span className="task-text">{task.text}</span>
 
             {/* 删除按钮 onClick={() => deleteTask(task.id)}：点击时调用函数，传入当前任务的 id */}
             <button onClick={() => deleteTask(task.id)}>

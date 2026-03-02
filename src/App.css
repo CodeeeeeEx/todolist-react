@@ -1,0 +1,96 @@
+.App {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: rgb(146, 157, 255);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  /* 去掉聚焦时自带的黑色边框 */
+  outline:none;
+}
+
+.input-area input:focus {
+  border-color: #6aaef7; /* 聚焦时边框变蓝色 */
+  box-shadow: 0 0 0 2px rgba(83, 166, 255, 0.25); /* 加个淡蓝色阴影 */
+}
+
+.input-area button {
+  padding: 10px 15px;
+  background: #6cfa6c;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  /* 添加过渡效果，让变化更平滑 */
+  transition: all 0.1s ease-out;
+  
+}
+
+.input-area button:hover {
+  background: #65eb65;
+}
+
+.input-area button:active {
+  transform: translateY(2px);
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+}
+
+.task-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: rgb(230, 230, 230);
+  border: 1px solid #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.task-list li.done .task-text{
+  text-decoration: line-through;
+  color: #999;
+}
+
+.task-list li button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.task-list li button:hover {
+  background: #c82333;
+}
+
+.task-list li button:active {
+  transform: translateY(1px);
+  background: #c82333;
+}
+

@@ -3,13 +3,12 @@ import { useState, useEffect } from 'react'; // 确保导入了useEffect
 import './App.css';
 
 function App() {
-  // 1.用 useState 创建两个状态
   // tasks: 任务列表（初始是空数组 []）
   // setTasks: 更新 tasks 的函数
   // ✨const [tasks, setTasks] = useState([]);
   // 💡 解释：useState([])相当于说“我要一个叫 tasks 的变量，初始值是空数组，如果我想改 tasks，就调用 setTasks”。inputValue同理。
 
-  // 修改为从本地存储读取：
+  // 1.用 useState 创建两个状态，并从本地存储读取：
   const [tasks, setTasks] = useState(() => {
     // 尝试从 LocalStorage 读取
     const savedTasks = localStorage.getItem('todo-tasks');
@@ -41,7 +40,7 @@ function App() {
     }
   }, [tasks]);
 
-  
+
   // 2.添加任务的函数
   const addTask = () => {
     // 如果输入框是空的，直接返回，不添加

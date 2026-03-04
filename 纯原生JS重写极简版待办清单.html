@@ -1,0 +1,138 @@
+<!-- 这是原生JS练习，方便更好理解React版待办清单 -->
+ <!DOCTYPE html>
+ <html lang="en">
+  <!-- 移除head和meta部分，专注理解js -->
+ <body>
+  <input id="input" placeholder="请输入任务">
+  <button onclick="addTask()">添加</button>
+  <ul id="list"></ul>
+
+  <script>
+    let tasks = [];
+    // 对应 useState([])，状态存储，作用是存任务列表
+
+    function addTask() {
+      const input = document.getElementById('input');
+      if (input.value.trim() === '') return;
+
+      tasks.push({ 
+        id: Date.now(),
+        text: input.value,
+        done: false 
+      });
+      // 对应 setTasks([...tasks, newTask])，作用是添加新任务
+      render(); // 注意这里是调用了第31的render函数里的内容，是与下方关联的，不是随便蹦出来的代码。
+      // render()函数手动更新DOM，在React中自动重新渲染，作用是更新界面，这里则是调用了第31行的render函数来通过JS语法实现JS制作HTML页面
+      // 💡 关键理解：原生 JS 需要手动触发渲染（render()），而 React 是数据变 → 自动渲染。
+      input.value = '';
+      // 清空输入框
+    }
+
+    function render () {
+      const list = document.getElementById('list'); // 用 map 生成 HTML 字符串，把 tasks数组的每个任务转成一段 HTML 字符串
+      list.innerHTML = tasks.map(task => `
+      <li>
+        <input type="checkbox" 
+        ${task.done ? 'checked' : ''}
+        onchange="toggleDone(${task.id})"
+        > 
+        <span style="${task.done ? 'text-decoration: line-through' : ''}">
+          ${task.text}
+        </span>
+        <button onclick="deleteTask(${task.id})">删除</button> 
+      </li>
+    `).join('');    // 数组转字符串：把字符串数组合并成一个长字符串
+    }
+
+    function deleteTask(id) {
+      tasks = tasks.filter(task => task.id !== id); // 箭头函数，意思是“对每个任务，判断它的id是否不等于传入的id，!==就是“严格不等于”的意思，表示值和类型都不等”
+      render(); // 这个函数返回true或false
+    }
+  
+    // filter代码的举例：
+    //  假设 tasks 是：
+    // [
+    //   { id: 1, text: '学习React' },
+    //   { id: 2, text: '吃午饭' },
+    //   { id: 3, text: '健身' }
+    // ]
+
+    //  调用 deleteTask(2)：
+    // tasks = tasks.filter(task => task.id !== 2)
+
+    //  过滤过程：
+    //  task.id=1 → 1!==2 → true → 留下
+    //  task.id=2 → 2!==2 → false → 筛掉
+    //  task.id=3 → 3!==2 → true → 留下
+
+    //  结果：
+    // [
+    //   { id: 1, text: '学习React' },
+    //   { id: 3, text: '健身' }
+    // ]
+    // tasks = 把过滤后的新数组重新赋值给 tasks。这是关键：创建新数组，而不是修改原数组
+
+    function toggleDone(id) {
+      tasks = tasks.map(task => { // map中文叫“映射”。它像一个工厂流水线，对数组每个元素加工，返回新数组。格式：数组.map(加工函数)
+        if (task.id === id) {
+          return { ...task, done: !task.done };  // 取反，对done的结果进行相反，如果是false那就变成true
+          // 💡 展开运算符：{ ...obj }创建obj的副本，可以修改其中属性
+        }
+        return task; // 如果不是要找的任务，原样返回
+      });
+      render();
+    }
+
+    // return { ...task, done: !task.done }举例 ↓
+    // 假设 tasks：
+    // [
+    //   { id: 1, text: '学习React', done: false },
+    //   { id: 2, text: '吃午饭', done: true }
+    // ]
+
+    //  调用 toggleDone(1)：
+    // tasks = tasks.map(task => {
+    //   if (task.id === 1) {
+    //     return { ...task, done: !task.done };  // false → true
+    //   }
+    //   return task;
+    // })
+
+    //  结果：
+    // [
+    //   { id: 1, text: '学习React', done: true },  // ✅ 改了
+    //   { id: 2, text: '吃午饭', done: true }     // 没变
+    // ]
+
+  </script>
+ </body>
+ </html>
+
+<!-- React与原生JS的核心逻辑（filter/map）一模一样，区别只在状态更新和界面更新的方式。-->
+
+<!-- 观察总结：
+      原生和React的核心逻辑几乎一样。
+      React 不是“另一种编程”，而是“更好的工具”。
+      它用useState替代变量，用setState替代手动render()。
+      但操作数据的思路（filter/map/spread）完全一样。 
+-->
+
+
+
+ <!-- 🧪 原生版本缺失的功能（对比 React 版）
+
+React 版有，但这个原生版没有：
+
+❌ 本地存储（刷新丢失）
+
+❌ 回车键支持
+
+❌ 清空全部功能
+
+❌ 响应式设计
+
+❌ 按钮禁用状态
+
+❌ 错误处理
+
+这正好说明了为什么我们需要 React！ -->

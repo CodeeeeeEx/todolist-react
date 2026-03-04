@@ -65,8 +65,9 @@ function App() {
 
   // 3.删除任务的函数
   const deleteTask = (id) => {
-    // 过滤掉 id 不等于传入 id 的任务
+    // task.id !== id= 只留下 id 不等于​ 要删除 id 的任务
     const newTasks = tasks.filter(task => task.id !== id);
+    // 剩下的任务就是新数组
     setTasks(newTasks);
     // 💡 解释：filter是数组方法，返回一个新数组，只包含满足条件的元素。
   };

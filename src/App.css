@@ -69,6 +69,15 @@ h1 {
   border: 1px solid #eee;
   border-radius: 4px;
   cursor: pointer;
+
+  /* 任务完成动画，自然过渡 */
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to {opacity: 1; transform: translateX(0); }
 }
 
 .task-list li.done .task-text{
@@ -94,3 +103,11 @@ h1 {
   background: #c82333;
 }
 
+.stats {
+  margin-bottom: 15px;
+  color: #c5f543;
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}

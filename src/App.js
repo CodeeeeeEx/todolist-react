@@ -1,6 +1,8 @@
 // 导入React、useState以及useEffect（useState是状态管理的"钩子"，用来在函数组件里记住和更新数据; useEffect是本地数据存储所用的函数）
 import { useState, useEffect } from 'react'; // 确保导入了useEffect
 import './App.css';
+// 导入组件TaskItem.jsx
+import TaskItem from './components/TaskItem';
 
 function App() {
   // tasks: 任务列表（初始是空数组 []）
@@ -37,6 +39,8 @@ function App() {
       localStorage.setItem('todo-tasks', JSON.stringify(tasks));
     } catch (error) {
       console.error('保存到本地存储失败:', error);
+      // 在此添加用户提示
+      alert('保存失败，请清理浏览器缓存后重试');
     }
   }, [tasks]);
 
@@ -46,6 +50,11 @@ function App() {
     // 如果输入框是空的，直接返回，不添加
     if (inputValue.trim() === '') return;
     // 💡 解释：inputValue.trim()：去掉输入内容两边的空格
+
+    if (inputValue.trim().length > 20) {
+      alert('任务内容不能超过20字');
+      return;
+    }
 
     // 创建一个新任务对象
     const newTask = {
@@ -93,6 +102,16 @@ function App() {
     }
   };
 
+  // 6.全选/全不选功能
+  const toggleAllTasks = () => {
+    const allDone = tasks.every(t => t.done);
+    const newTasks = tasks.map(task => ({
+      ...task,
+      done: !allDone
+    }));
+    setTasks(newTasks);
+  }
+
 // 这里是函数内的JSX内容语法，对应HTML
   return (
     <div className="App">
@@ -111,6 +130,15 @@ function App() {
           }}
           placeholder="输入新任务..." // placeholder是提示文字区域
         ></input>
+        {/* 任务统计 */}
+        <div className="stats">
+          <span>总计：{tasks.length} 个任务</span>
+          <span> | </span>
+          <span>完成：{tasks.filter(t => t.done).length} 个</span>
+          <span> | </span>
+          <span>未完成：{tasks.filter(t => !t.done).length} 个</span>
+        </div>
+
         <button onClick={addTask}>添加</button>
         <button
           onClick={clearAllTasks}
@@ -119,33 +147,49 @@ function App() {
         >
           清空全部
         </button>
+        {/* 全选/全不选功能 */}
+        <button
+          onClick={toggleAllTasks}
+          className="toggle-all-btn"
+          disabled={tasks.length === 0}
+        >
+          {tasks.every(t => t.done)? '全部取消' : '全部完成'}
+        </button>
       </div>
 
       {/* 任务列表 */}
       <ul className="task-list">
         {tasks.map(task => (
-          <li
-            key={task.id} // 每个 li 必须有唯一 key
-            // 💡 解释：key={task.id}：React 要求列表每个元素有唯一 key，用于性能优化
+          // <li
+          //   key={task.id} // 每个 li 必须有唯一 key
+          //   // 💡 解释：key={task.id}：React 要求列表每个元素有唯一 key，用于性能优化
 
-            className={task.done ? 'done' : ''} // 如果完成，加 'done' 类，否则空
-          >
-            {/* 复选框，勾选加划线表示已完成，取消则恢复原样 */}
-            <input
-              type="checkbox"
-              checked={task.done}
-              onChange={() => toggleDone(task.id)}
-              className="task-checkbox"
-              />
+          //   className={task.done ? 'done' : ''} // 如果完成，加 'done' 类，否则空
+          // >
+          //   {/* 复选框，勾选加划线表示已完成，取消则恢复原样 */}
+          //   <input
+          //     type="checkbox"
+          //     checked={task.done}
+          //     onChange={() => toggleDone(task.id)}
+          //     className="task-checkbox"
+          //     />
 
-            {/* 获取到函数里写的任务内容 */}
-            <span className="task-text">{task.text}</span>
+          //   {/* 获取到函数里写的任务内容 */}
+          //   <span className="task-text">{task.text}</span>
 
-            {/* 删除按钮 onClick={() => deleteTask(task.id)}：点击时调用函数，传入当前任务的 id */}
-            <button onClick={() => deleteTask(task.id)}>
-              删除
-            </button>
-          </li>  
+          //   {/* 删除按钮 onClick={() => deleteTask(task.id)}：点击时调用函数，传入当前任务的 id */}
+          //   <button onClick={() => deleteTask(task.id)}>
+          //     删除
+          //   </button>
+          // </li>  
+
+          <TaskItem
+            key={task.id}
+            task={task}
+            toggleDone={toggleDone}
+            deleteTask={deleteTask}
+          ></TaskItem>
+          // ✅ 价值：练习组件化思维，代码更易读、易维护，替换上方直接编写的语法，而是创建一个组件然后调用它
         ))}
       </ul>
     </div>

@@ -1,113 +1,58 @@
-.App {
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background: rgb(146, 157, 255);
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+/* 自定义动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-.input-area {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.input-area input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  /* 去掉聚焦时自带的黑色边框 */
-  outline:none;
-}
-
-.input-area input:focus {
-  border-color: #6aaef7; /* 聚焦时边框变蓝色 */
-  box-shadow: 0 0 0 2px rgba(83, 166, 255, 0.25); /* 加个淡蓝色阴影 */
-}
-
-.input-area button {
-  padding: 10px 15px;
-  background: #6cfa6c;
-  color: black;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  /* 添加过渡效果，让变化更平滑 */
-  transition: all 0.1s ease-out;
-  
-}
-
-.input-area button:hover {
-  background: #65eb65;
-}
-
-.input-area button:active {
-  transform: translateY(2px);
-}
-
-.task-list {
-  list-style: none;
-  padding: 0;
-}
-
-.task-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 8px;
-  background: rgb(230, 230, 230);
-  border: 1px solid #eee;
-  border-radius: 4px;
-  cursor: pointer;
-
-  /* 任务完成动画，自然过渡 */
+.list-group-item {
+  animation: fadeIn 0.3s ease;
   transition: all 0.3s ease;
-  animation: slideIn 0.3s ease;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem !important;
+  border-left: 4px solid #0d6efd;
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-20px); }
-  to {opacity: 1; transform: translateX(0); }
+.list-group-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.task-list li.done .task-text{
-  text-decoration: line-through;
-  color: #999;
+.list-group-item.bg-light {
+  border-left-color: #20c997;
 }
 
-.task-list li button {
-  background: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
+/* 暗色主题优化 */
+[data-bs-theme="dark"] .list-group-item {
+  background-color: #2d3748;
+  border-color: #4a5568;
 }
 
-.task-list li button:hover {
-  background: #c82333;
+[data-bs-theme="dark"] .list-group-item.bg-light {
+  background-color: #4a5568 !important;
 }
 
-.task-list li button:active {
-  transform: translateY(1px);
-  background: #c82333;
+/* 自定义卡片阴影 */
+.card {
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
-.stats {
-  margin-bottom: 15px;
-  color: #c5f543;
-  font-size: 14px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .alert {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .list-group-item {
+    padding: 0.75rem;
+  }
 }

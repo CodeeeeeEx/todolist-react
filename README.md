@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# 🎯 Todo List Pro - React 待办清单应用
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+一个功能完整的现代化待办事项应用，使用 React 和 Bootstrap 5 构建。
 
-## Available Scripts
+## ✨ 功能特性
 
-In the project directory, you can run:
+- ✅ 添加/删除/标记完成任务
+- ✅ 本地存储（刷新不丢失）
+- ✅ 亮色/暗色主题切换
+- ✅ 响应式设计（手机/平板/电脑）
+- ✅ 任务统计（总计/完成/未完成）
+- ✅ 全选/全不选功能
+- ✅ 一键清空所有任务
+- ✅ 键盘支持（回车添加任务）
 
-### `npm start`
+## 🖼️ 截图预览
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### PC端
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![PC端截图](./screenshots/screenshot-pc.png)
 
-### `npm test`
+### 手机端
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![手机端截图](./screenshots/screenshot-mobile.png)
 
-### `npm run build`
+## 🚀 在线演示
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[点击这里查看在线演示](https://codeeeeeex.github.io/todo-list-react)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠️ 技术栈
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **前端框架**: React 18
+- **UI 库**: Bootstrap 5
+- **状态管理**: React Hooks (useState, useEffect)
+- **数据持久化**: LocalStorage API
+- **部署**: GitHub Pages
+- **图标**: Bootstrap Icons
 
-### `npm run eject`
+## 📦 如何运行本项目
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+# 克隆项目
+git clone https://github.com/codeeeeeex/todo-list-react.git
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# 进入目录
+cd todo-list-react
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# 安装依赖
+npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# 启动开发服务器
+npm start
+```
 
-## Learn More
+## 📁 项目结构
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+todo-list-react/
+├── public/          # 静态资源
+├── src/
+│   ├── components/  # React组件
+│   │   └── TaskItem.jsx
+│   ├── App.js       # 主组件
+│   ├── App.css      # 自定义样式
+│   └── index.js     # 入口文件
+├── screenshots/     # 截图目录
+├── README.md        # 项目说明
+└── package.json     # 项目配置
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🧠 学习收获
 
-### Code Splitting
+通过本项目，我深入理解了：
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- React 状态管理（useState, useEffect）
+- 组件化开发思想
+- Bootstrap 5 响应式布局
+- 本地存储 API 的应用
+- 前端工程化部署流程
 
-### Analyzing the Bundle Size
+## 📄 开源协议
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT License

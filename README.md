@@ -18,10 +18,12 @@
 ### PC端
 
 ![PC端截图](./screenshots/screenshot-pc.png)
+![PC端暗色模式](./screenshots/screenshot-pc2.png)
 
 ### 手机端
 
 ![手机端截图](./screenshots/screenshot-mobile.png)
+![手机端暗色模式](./screenshots/screenshot-mobile2.png)
 
 ## 🚀 在线演示
 
@@ -77,7 +79,3 @@ todo-list-react/
 - Bootstrap 5 响应式布局
 - 本地存储 API 的应用
 - 前端工程化部署流程
-
-## 📄 开源协议
-
-MIT License

@@ -42,6 +42,7 @@ function App() {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     document.documentElement.setAttribute('data-bs-theme',newTheme);
+    // document.documentElement获取HTML根元素，用setAttribute('data-bs-theme', 'dark')设置Bootstrap主题属性，Bootstrap 5会自动根据这个属性切换主题
     localStorage.setItem('todo-theme', newTheme);
   };
 

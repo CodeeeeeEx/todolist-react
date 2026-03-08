@@ -42,7 +42,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/codeeeeeex/todo-list-react.git
+git clone https://github.com/codeeeeeex/todolist-react.git
 
 # 进入目录
 cd todo-list-react
